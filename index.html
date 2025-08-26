@@ -2,363 +2,148 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>隨機 HTML 測試頁</title>
-  <meta name="description" content="一個功能齊全、可切換主題的單檔 HTML 測試頁。" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>個人測試頁面 — 範例</title>
   <style>
-    :root {
-      --bg: #f6f7f9;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --accent: hsl(210 90% 56%);
-      --accent-contrast: #ffffff;
-      --shadow: 0 8px 30px rgba(0,0,0,.08);
-      --radius: 16px;
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c5cff;
+      --glass: rgba(255,255,255,0.04);
     }
-    :root[data-theme="dark"]{
-      --bg: #0b1220;
-      --card: #101826;
-      --text: #e5e7eb;
-      --muted: #9aa3b2;
-      --border: #1f2a3a;
-      --accent-contrast: #0b1220;
-      --shadow: 0 8px 30px rgba(0,0,0,.35);
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: linear-gradient(180deg,#071021 0%, #0b1020 100%); color:#e6eef8; -webkit-font-smoothing:antialiased}
+    .container{max-width:980px;margin:40px auto;padding:24px}
+    header{display:flex;gap:20px;align-items:center}
+    .avatar{width:120px;height:120px;border-radius:20px;flex:0 0 120px;background:linear-gradient(135deg,var(--accent),#4dd2ff);display:grid;place-items:center;font-weight:700;color:#071021;font-size:30px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+    .name{font-size:22px;margin:0}
+    .subtitle{color:var(--muted);margin-top:6px}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;margin-top:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:18px}
+    .section-title{font-weight:700;margin-bottom:8px}
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--glass);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+
+    .projects{display:flex;flex-direction:column;gap:12px}
+    .proj{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
+    .proj-title{font-weight:700}
+    .contact-list{display:flex;flex-direction:column;gap:8px}
+    a.button{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;background:linear-gradient(90deg,var(--accent),#4dd2ff);color:#071021;font-weight:700}
+
+    footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr;}
+      .avatar{width:96px;height:96px;border-radius:16px;flex:0 0 96px}
     }
-    *{ box-sizing:border-box }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
-    header {
-      position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(8px);
-      background: color-mix(in oklab, var(--bg) 70%, transparent);
-      border-bottom: 1px solid var(--border);
-    }
-    .bar { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 14px 24px; }
-    .brand { display:flex; align-items:center; gap:10px; font-weight: 800; letter-spacing: .4px; }
-    .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); box-shadow: inset 0 -4px 10px rgba(0,0,0,.2); }
-    .actions { display:flex; gap: 10px; }
-    button, .btn { 
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 14px; border-radius: 12px; border: 1px solid transparent; cursor: pointer;
-      background: var(--card); color: var(--text); border-color: var(--border); box-shadow: var(--shadow);
-      transition: transform .06s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
-    }
-    button:hover, .btn:hover { transform: translateY(-1px); }
-    .btn.primary { background: var(--accent); color: var(--accent-contrast); border-color: color-mix(in oklab, var(--accent), black 10%); }
-    .btn.ghost { background: transparent; border-color: var(--border); }
-
-    .grid { display:grid; gap: 20px; grid-template-columns: repeat(12, 1fr); }
-    .col-12 { grid-column: span 12; }
-    .col-6 { grid-column: span 6; }
-    .col-4 { grid-column: span 4; }
-
-    @media (max-width: 900px) { .col-6 { grid-column: span 12; } }
-    @media (max-width: 640px) { .col-4 { grid-column: span 12; } }
-
-    .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-      box-shadow: var(--shadow); padding: 20px; overflow: hidden;
-    }
-    .card h3 { margin: 0 0 8px; }
-    .muted { color: var(--muted); }
-    .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: color-mix(in oklab, var(--card), var(--text) 5%); border: 1px solid var(--border); padding: 2px 6px; border-radius: 6px; }
-
-    /* Table */
-    table { width: 100%; border-collapse: collapse; overflow: clip; border-radius: 12px; }
-    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
-    thead th { position: sticky; top: 52px; background: var(--card); z-index: 1; }
-    tbody tr:nth-child(even){ background: color-mix(in oklab, var(--card), var(--text) 4%); }
-
-    /* Inputs */
-    .field { display: grid; gap: 6px; }
-    input, select, textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: color-mix(in oklab, var(--card), var(--text) 3%); color: var(--text); }
-    input:focus, select:focus, textarea:focus { outline: 2px solid color-mix(in oklab, var(--accent), white 40%); border-color: var(--accent); }
-
-    .chip { display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background: color-mix(in oklab, var(--card), var(--accent) 10%); }
-
-    /* Toast */
-    .toast-wrap { position: fixed; right: 16px; bottom: 16px; display: grid; gap: 10px; z-index: 100; }
-    .toast { background: var(--card); border: 1px solid var(--border); border-left: 6px solid var(--accent); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow); animation: slideIn .25s ease; }
-    @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    /* Dropzone */
-    .dropzone { border: 2px dashed var(--border); border-radius: 14px; padding: 24px; text-align: center; }
-    .dropzone.dragover { border-color: var(--accent); background: color-mix(in oklab, var(--card), var(--accent) 8%); }
-
-    /* Modal */
-    dialog { border: 1px solid var(--border); border-radius: 16px; background: var(--card); color: var(--text); box-shadow: var(--shadow); width:min(560px, 92vw); }
-    dialog::backdrop { background: rgba(0,0,0,.4); }
-
-    /* Progress */
-    progress { width: 100%; height: 10px; border: none; border-radius: 999px; overflow: hidden; background: color-mix(in oklab, var(--card), var(--text) 6%); }
-    progress::-webkit-progress-bar { background: transparent; }
-    progress::-webkit-progress-value { background: var(--accent); }
-
-    /* Footer */
-    footer { padding: 40px 0; color: var(--muted); text-align: center; }
-
-    .badge { background: var(--accent); color: var(--accent-contrast); padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
-
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   </style>
 </head>
 <body>
-  <header>
-    <div class="bar container" role="navigation" aria-label="頂部工具列">
-      <div class="brand">
-        <span class="logo" aria-hidden="true"></span>
-        <span>HTML 測試頁</span>
-        <span class="badge" id="seedBadge">seed</span>
-      </div>
-      <div class="actions">
-        <button class="btn ghost" id="randomize">隨機主題</button>
-        <button class="btn" id="toggleTheme" aria-pressed="false" aria-label="切換深色主題">
-          <span>🌗</span><span>深色</span>
-        </button>
-        <a class="btn primary" href="#forms">跳到表單</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="grid" style="margin-top: 18px;">
-      <div class="card col-12">
-        <h1 style="margin: 0 0 6px;">這是一個 <span class="chip">隨機色</span> 的 HTML 測試頁</h1>
-        <p class="muted">包含排版、按鈕、表單、表格、Modal、Toast、拖放、進度條、可存偏好之亮/暗主題，方便快速檢查 UI 元件。</p>
-      </div>
-
-      <div class="card col-6">
-        <h3>按鈕與狀態</h3>
-        <div style="display:flex; gap:10px; flex-wrap: wrap;">
-          <button class="btn">一般</button>
-          <button class="btn primary">主要</button>
-          <button class="btn ghost">幽靈</button>
-          <button class="btn" disabled>停用</button>
-          <button class="btn" id="showToast">顯示 Toast</button>
-          <button class="btn" id="openModal">開啟 Modal</button>
-        </div>
-        <div style="margin-top: 16px;">
-          <label class="chip"><input type="checkbox" id="reduceMotion"/> 偏好減少動效</label>
-        </div>
-      </div>
-
-      <div class="card col-6" id="forms">
-        <h3>表單元素</h3>
-        <form id="demoForm" class="grid" style="grid-template-columns: repeat(12, 1fr); gap: 12px;">
-          <label class="field col-6">
-            <span>姓名</span>
-            <input name="name" placeholder="王小明" required />
-          </label>
-          <label class="field col-6">
-            <span>電子郵件</span>
-            <input type="email" name="email" placeholder="name@example.com" required />
-          </label>
-          <label class="field col-12">
-            <span>密碼 <span class="muted">(至少 8 碼含數字)</span></span>
-            <input type="password" name="pwd" minlength="8" pattern="(?=.*\d).{8,}" required />
-          </label>
-          <label class="field col-6">
-            <span>國家</span>
-            <select name="country">
-              <option value="">請選擇</option>
-              <option>台灣</option>
-              <option>日本</option>
-              <option>美國</option>
-            </select>
-          </label>
-          <label class="field col-6">
-            <span>生日</span>
-            <input type="date" name="dob" />
-          </label>
-          <label class="field col-12">
-            <span>備註</span>
-            <textarea name="note" rows="3" placeholder="說點什麼…"></textarea>
-          </label>
-          <div class="col-12" style="display:flex; gap:10px; align-items:center;">
-            <label class="chip"><input type="checkbox" required/> 我同意條款</label>
-            <button class="btn primary" type="submit">送出</button>
-            <span id="formMsg" class="muted" role="status" aria-live="polite"></span>
+  <div class="container">
+    <header class="card">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="avatar">AB</div>
+        <div>
+          <h1 class="name">陳吉米（測試）</h1>
+          <div class="subtitle">可能是工程師</div>
+          <div style="margin-top:12px">
+            <a class="button" href="#contact">聯絡我</a>
+            <a class="button" style="margin-left:8px;opacity:0.95" href="#projects">作品集</a>
           </div>
-        </form>
-      </div>
-
-      <div class="card col-12">
-        <h3>資料表格</h3>
-        <div style="overflow:auto; max-height: 300px; border: 1px solid var(--border); border-radius: 12px;">
-          <table>
-            <thead>
-              <tr>
-                <th>名稱</th>
-                <th>類型</th>
-                <th>狀態</th>
-                <th>更新時間</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-          </table>
         </div>
       </div>
+    </header>
 
-      <div class="card col-4">
-        <h3>進度與載入</h3>
-        <progress id="progress" max="100" value="25">25%</progress>
-        <div style="display:flex; gap:10px; margin-top:10px;">
-          <button class="btn" id="inc">+10%</button>
-          <button class="btn" id="dec">-10%</button>
+    <div class="grid">
+      <main>
+        <section class="card">
+          <div class="section-title">關於我</div>
+          <p style="color:var(--muted);line-height:1.7">這是一則測試個人頁面的示範內容。你可以把它拿來做為個人簡介、作品集或是履歷頁面的基底，並在需要的地方替換成真實資料。</p>
+        </section>
+
+        <section class="card">
+          <div class="section-title">作品</div>
+          <div class="projects">
+            <article class="proj">
+              <div class="proj-title">專案 A — 範例網站</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">描述：響應式單頁應用，使用原生 HTML/CSS/JS 開發。</div>
+            </article>
+            <article class="proj">
+              <div class="proj-title">專案 B — 小遊戲</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">描述：Canvas 與動畫的練習專案，包含高分榜與音效。</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">技能</div>
+          <div class="skills">
+            <div class="chip">HTML</div>
+            <div class="chip">CSS</div>
+            <div class="chip">JavaScript</div>
+            <div class="chip">React</div>
+            <div class="chip">Node.js</div>
+            <div class="chip">Git / GitHub</div>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <div class="section-title">聯絡與社群</div>
+          <div class="contact-list">
+            <div style="color:var(--muted)">Email: <a href="mailto:example@example.com">example@example.com</a></div>
+            <div style="color:var(--muted)">電話: +886 912 345 678</div>
+            <div style="margin-top:8px"><a class="button" href="#">下載履歷 (PDF)</a></div>
+          </div>
         </div>
-      </div>
 
-      <div class="card col-4">
-        <h3>拖放上傳區</h3>
-        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="拖拉檔案到此或按 Enter 選擇檔案">拖拉檔案到此或點擊選擇</div>
-        <input type="file" id="fileInput" class="sr-only" multiple />
-        <p id="files" class="muted" style="margin-top:10px;">尚未選擇檔案</p>
-      </div>
-
-      <div class="card col-4">
-        <h3>小工具</h3>
-        <p>快捷鍵提示：<span class="kbd">/</span> 聚焦搜尋、<span class="kbd">?</span> 開啟說明。</p>
-        <input id="search" placeholder="按 / 聚焦…" />
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">© <span id="year"></span> 測試頁 · 以原生 HTML/CSS/JS 製作</div>
-  </footer>
-
-  <div class="toast-wrap" id="toasts" aria-live="polite" aria-atomic="true"></div>
-
-  <dialog id="modal" aria-labelledby="modalTitle">
-    <form method="dialog" style="padding: 0;">
-      <div class="card" style="border:none; border-radius: inherit;">
-        <h3 id="modalTitle">這是一個 Modal</h3>
-        <p class="muted">支援 <span class="kbd">Esc</span> 關閉、點 backdrop 關閉與 <span class="kbd">Enter</span> 確認。</p>
-        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top: 10px;">
-          <button class="btn ghost" value="cancel">取消</button>
-          <button class="btn primary" value="ok">確認</button>
+        <div class="card" style="margin-top:12px">
+          <div class="section-title">小工具</div>
+          <div style="color:var(--muted);font-size:14px">主題切換 / 平滑捲動示範</div>
+          <div style="margin-top:10px">
+            <button id="themeToggle" style="padding:8px 10px;border-radius:8px;background:var(--glass);border:0;color:var(--muted);cursor:pointer">切換主題</button>
+          </div>
         </div>
-      </div>
-    </form>
-  </dialog>
+      </aside>
+    </div>
+
+    <footer>
+      範例頁面 • 建立於測試環境
+    </footer>
+  </div>
 
   <script>
-    // --- Utilities ---
-    const $ = (q, root=document) => root.querySelector(q);
-    const $$ = (q, root=document) => [...root.querySelectorAll(q)];
-
-    // Persisted theme
-    const root = document.documentElement;
-    const savedTheme = localStorage.getItem('theme');
-    if(savedTheme){ root.setAttribute('data-theme', savedTheme); $('#toggleTheme').ariaPressed = savedTheme==='dark'; $('#toggleTheme').lastElementChild.textContent = savedTheme==='dark' ? '淺色' : '深色'; }
-
-    // Random accent color seeded by URL hash
-    function seededRandom(seed){ let t = seed; return () => (t = (t * 48271) % 2147483647) / 2147483647; }
-    const seed = location.hash.slice(1) || Math.floor(Math.random()*1e9).toString(36);
-    const rng = seededRandom(parseInt(seed,36) || 123456);
-    const accentHue = Math.floor(rng()*360);
-    document.documentElement.style.setProperty('--accent', `hsl(${accentHue} 85% 52%)`);
-    $('#seedBadge').textContent = `seed:${seed}`;
-
-    // Event: randomize theme/color
-    $('#randomize').addEventListener('click', () => {
-      const newSeed = Math.floor(Math.random()*1e9).toString(36);
-      location.hash = newSeed; location.reload();
+    // 簡單的主題切換（深色/微亮）
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click',()=>{
+      const root = document.documentElement;
+      if(root.style.getPropertyValue('--bg') === 'var(--bg)'){
+        // noop
+      }
+      if(root.style.getPropertyValue('--bg')){
+        root.style.removeProperty('--bg');
+      }
+      // small demo: invert background colors
+      if(getComputedStyle(document.body).background.includes('#071021')){
+        document.body.style.background = 'linear-gradient(180deg,#f6f8ff 0%, #e9eefb 100%)';
+        document.body.style.color = '#071021';
+      } else {
+        document.body.style.background = 'linear-gradient(180deg,#071021 0%, #0b1020 100%)';
+        document.body.style.color = '#e6eef8';
+      }
     });
 
-    // Theme toggle
-    $('#toggleTheme').addEventListener('click', (e)=>{
-      const dark = root.getAttribute('data-theme') !== 'dark';
-      root.setAttribute('data-theme', dark ? 'dark' : 'light');
-      e.currentTarget.ariaPressed = dark;
-      e.currentTarget.lastElementChild.textContent = dark ? '淺色' : '深色';
-      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    // 平滑滾動小腳本（如果有需要）
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target = a.getAttribute('href');
+        if(target === '#') return;
+        e.preventDefault();
+        const el = document.querySelector(target);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
     });
-
-    // Table demo data
-    const statuses = ['運行中','閒置','失敗','已排程'];
-    const types = ['API','Worker','DB','Cache','Queue'];
-    const rows = Array.from({length: 30}, (_,i)=>({
-      name:`服務 #${i+1}`,
-      type: types[Math.floor(rng()*types.length)],
-      status: statuses[Math.floor(rng()*statuses.length)],
-      updated: new Date(Date.now() - Math.floor(rng()*1e8)).toLocaleString()
-    }));
-    $('#tableBody').innerHTML = rows.map(r=>`<tr><td>${r.name}</td><td>${r.type}</td><td>${r.status}</td><td>${r.updated}</td></tr>`).join('');
-
-    // Toast
-    function toast(msg){
-      const el = document.createElement('div');
-      el.className = 'toast';
-      el.role = 'status';
-      el.innerHTML = msg;
-      $('#toasts').appendChild(el);
-      setTimeout(()=>{
-        el.style.opacity = 0; el.style.transform = 'translateY(4px)';
-        setTimeout(()=>el.remove(), 300);
-      }, 2500);
-    }
-    $('#showToast').addEventListener('click', ()=> toast('這是一則提示訊息。'));
-
-    // Modal
-    const modal = $('#modal');
-    $('#openModal').addEventListener('click', ()=> modal.showModal());
-    modal.addEventListener('close', ()=> toast(`Modal 結果：<b>${modal.returnValue || '關閉'}</b>`));
-
-    // Form
-    $('#demoForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const fd = new FormData(e.currentTarget);
-      const data = Object.fromEntries(fd.entries());
-      $('#formMsg').textContent = `收到：${JSON.stringify(data)}`;
-      toast('表單已送出！');
-      e.currentTarget.reset();
-    });
-
-    // Progress controls
-    const prog = $('#progress');
-    $('#inc').addEventListener('click', ()=> prog.value = Math.min(100, prog.value + 10));
-    $('#dec').addEventListener('click', ()=> prog.value = Math.max(0, prog.value - 10));
-
-    // Dropzone
-    const dz = $('#dropzone');
-    const fi = $('#fileInput');
-    const filesText = $('#files');
-    const setFiles = (fileList)=>{
-      if(!fileList || !fileList.length){ filesText.textContent = '尚未選擇檔案'; return; }
-      filesText.textContent = [...fileList].map(f=>`${f.name} (${(f.size/1024).toFixed(1)} KB)`).join(', ');
-    };
-    dz.addEventListener('click', ()=> fi.click());
-    dz.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); fi.click(); }});
-    dz.addEventListener('dragover', (e)=>{ e.preventDefault(); dz.classList.add('dragover'); });
-    dz.addEventListener('dragleave', ()=> dz.classList.remove('dragover'));
-    dz.addEventListener('drop', (e)=>{ e.preventDefault(); dz.classList.remove('dragover'); setFiles(e.dataTransfer.files); });
-    fi.addEventListener('change', ()=> setFiles(fi.files));
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === '/') { e.preventDefault(); $('#search').focus(); }
-      if(e.key === '?') { e.preventDefault(); alert('快捷鍵：/ 聚焦搜尋、? 開啟說明'); }
-    });
-
-    // Reduce motion toggle
-    $('#reduceMotion').addEventListener('change', (e)=>{
-      document.body.style.setProperty('transition', e.target.checked ? 'none' : '');
-    });
-
-    // Footer year
-    $('#year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
