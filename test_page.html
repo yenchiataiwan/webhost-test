@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>個人測試頁面 — 範例</title>
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#7c5cff;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: linear-gradient(180deg,#071021 0%, #0b1020 100%); color:#e6eef8; -webkit-font-smoothing:antialiased}
+    .container{max-width:980px;margin:40px auto;padding:24px}
+    header{display:flex;gap:20px;align-items:center}
+    .avatar{width:120px;height:120px;border-radius:20px;flex:0 0 120px;background:linear-gradient(135deg,var(--accent),#4dd2ff);display:grid;place-items:center;font-weight:700;color:#071021;font-size:30px;box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+    .name{font-size:22px;margin:0}
+    .subtitle{color:var(--muted);margin-top:6px}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:18px;margin-top:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:18px}
+    .section-title{font-weight:700;margin-bottom:8px}
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--glass);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:13px}
+
+    .projects{display:flex;flex-direction:column;gap:12px}
+    .proj{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
+    .proj-title{font-weight:700}
+    .contact-list{display:flex;flex-direction:column;gap:8px}
+    a.button{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;background:linear-gradient(90deg,var(--accent),#4dd2ff);color:#071021;font-weight:700}
+
+    footer{margin-top:26px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* responsive */
+    @media (max-width:880px){
+      .grid{grid-template-columns:1fr;}
+      .avatar{width:96px;height:96px;border-radius:16px;flex:0 0 96px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="avatar">AB</div>
+        <div>
+          <h1 class="name">陳吉米（測試）</h1>
+          <div class="subtitle">可能是工程師</div>
+          <div style="margin-top:12px">
+            <a class="button" href="#contact">聯絡我</a>
+            <a class="button" style="margin-left:8px;opacity:0.95" href="#projects">作品集</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <main>
+        <section class="card">
+          <div class="section-title">關於我</div>
+          <p style="color:var(--muted);line-height:1.7">這是一則測試個人頁面的示範內容。你可以把它拿來做為個人簡介、作品集或是履歷頁面的基底，並在需要的地方替換成真實資料。</p>
+        </section>
+
+        <section class="card">
+          <div class="section-title">作品</div>
+          <div class="projects">
+            <article class="proj">
+              <div class="proj-title">專案 A — 範例網站</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">描述：響應式單頁應用，使用原生 HTML/CSS/JS 開發。</div>
+            </article>
+            <article class="proj">
+              <div class="proj-title">專案 B — 小遊戲</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:6px">描述：Canvas 與動畫的練習專案，包含高分榜與音效。</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-title">技能</div>
+          <div class="skills">
+            <div class="chip">HTML</div>
+            <div class="chip">CSS</div>
+            <div class="chip">JavaScript</div>
+            <div class="chip">React</div>
+            <div class="chip">Node.js</div>
+            <div class="chip">Git / GitHub</div>
+          </div>
+        </section>
+      </main>
+
+      <aside>
+        <div class="card">
+          <div class="section-title">聯絡與社群</div>
+          <div class="contact-list">
+            <div style="color:var(--muted)">Email: <a href="mailto:example@example.com">example@example.com</a></div>
+            <div style="color:var(--muted)">電話: +886 912 345 678</div>
+            <div style="margin-top:8px"><a class="button" href="#">下載履歷 (PDF)</a></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px">
+          <div class="section-title">小工具</div>
+          <div style="color:var(--muted);font-size:14px">主題切換 / 平滑捲動示範</div>
+          <div style="margin-top:10px">
+            <button id="themeToggle" style="padding:8px 10px;border-radius:8px;background:var(--glass);border:0;color:var(--muted);cursor:pointer">切換主題</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      範例頁面 • 建立於測試環境
+    </footer>
+  </div>
+
+  <script>
+    // 簡單的主題切換（深色/微亮）
+    const btn = document.getElementById('themeToggle');
+    btn.addEventListener('click',()=>{
+      const root = document.documentElement;
+      if(root.style.getPropertyValue('--bg') === 'var(--bg)'){
+        // noop
+      }
+      if(root.style.getPropertyValue('--bg')){
+        root.style.removeProperty('--bg');
+      }
+      // small demo: invert background colors
+      if(getComputedStyle(document.body).background.includes('#071021')){
+        document.body.style.background = 'linear-gradient(180deg,#f6f8ff 0%, #e9eefb 100%)';
+        document.body.style.color = '#071021';
+      } else {
+        document.body.style.background = 'linear-gradient(180deg,#071021 0%, #0b1020 100%)';
+        document.body.style.color = '#e6eef8';
+      }
+    });
+
+    // 平滑滾動小腳本（如果有需要）
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target = a.getAttribute('href');
+        if(target === '#') return;
+        e.preventDefault();
+        const el = document.querySelector(target);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
